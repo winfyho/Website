@@ -1,7 +1,9 @@
 <template>
     <div class="es6">
 
-        <SliderBar :pager="pager" v-on:change-slider="changeSlider" />
+        <SliderBar :pager="pager" 
+        :curPagerIndex="curPagerIndex" 
+        v-on:change-slider="changeSlider" />
         <Page :htmlMD="htmlMD" />
 
 
@@ -25,20 +27,20 @@
         data() {
             return {
                 pager: {},
+                curPagerIndex:0,
                 htmlMD:``,
-                curSliderBar: ""
             }
         },
         methods: {
             changeSlider(res) {
-                // this.curSliderBar = res
-                // console.log(this.curSliderBar)
-                // getStudyMarkdown(this.curSliderBar).then(res => {
-                //     this.mdContent = res.data
-                //     console.table("获取的mdContent", res.data);
-
-                // })
-
+                console.log(res.name,"第",res.index);
+                this.curPagerIndex = res.index
+                this.curPath = `/markdown/${this.pager[this.curPagerIndex].path}`
+                console.log(this.curPath);
+                getStudyMarkdown(this.curPath).then(md => {
+                    this.htmlMD = md
+                })
+                
             }
         },
         created() {

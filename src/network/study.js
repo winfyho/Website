@@ -17,14 +17,10 @@ export function getStudyPager(name) {
 export function getStudyMarkdown(url) {
     return new Promise((resolve, reject) => {
 
-        console.log("请求md文件", url)
 
         axios.get(url).then((res) => {
-            // this.htmlMD = response.data;
             console.log("请求md文件", url, res);
             resolve(res.data)
-
-
         });
 
     })

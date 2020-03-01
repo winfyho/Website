@@ -38,6 +38,9 @@
         color: #333;
         font-weight: 600;
     }
+    .active .text{
+        border-bottom: 3px solid var(--color-background);
+    }
     .slider-bar-item .text:hover{
         border-bottom: 3px solid var(--color-background);
 

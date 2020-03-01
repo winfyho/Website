@@ -1,7 +1,7 @@
 <template>
     <div class="md-notes">
 
-        <SliderBar :pager="pager" v-on:change-slider="changeSlider" />
+        <SliderBar :pager="pager" :curPagerIndex="curPagerIndex" v-on:change-slider="changeSlider" />
         <Page :htmlMD="htmlMD" />
         
     </div>
@@ -26,30 +26,29 @@
         },
         data() {
             return {
-                pager: [],
-                mdContent: {},
-                curSliderBar: "",
-                htmlMD:``,  
+                pager: {},
+                curPagerIndex:0,
+                htmlMD:``,
             }
         },
         methods: {
             changeSlider(res) {
-                // this.curSliderBar = res
-                // console.log(this.curSliderBar)
-                // getStudyMarkdown(this.curSliderBar).then(res => {
-                //     this.mdContent = res.data
-                //     console.table("获取的mdContent", res.data);
-
-                // })
-
+                console.log(res.name,"第",res.index);
+                this.curPagerIndex = res.index
+                this.curPath = `/markdown/${this.pager[this.curPagerIndex].path}`
+                console.log(this.curPath);
+                getStudyMarkdown(this.curPath).then(md => {
+                    this.htmlMD = md
+                })
+                
             }
         },
         created() {
 
             getStudyPager("markdown").then(pager => {
-                console.log("Md侧边栏",pager);
+                console.log("es6侧边栏", pager);
                 this.pager = pager
-                
+
                 getStudyMarkdown(`/markdown/${pager[0].path}`).then(md => {
                     this.htmlMD = md
                 })

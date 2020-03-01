@@ -18,20 +18,25 @@
     data() {
       return {
         navbars: [
-          { title: "首页", url: "home" },
-          { title: "学习", url: "study" },
-          { title: "组件", url: "tools" },
-          { title: "关于", url: "about" },
+          { title: "首页", url: "/home" },
+          { title: "学习", url: "/study" },
+          { title: "组件", url: "/tools" },
+          { title: "关于", url: "/about" },
         ],
-        curIndex: 0
+        curIndex: 1
       }
     },
 
     methods: {
-      routeChange(route,index) {
-        console.log(route,index);
-        this.$router.push(route);
-        this.curIndex = index
+      routeChange(route, index) {
+        if (index != this.curIndex) {
+          console.log(route, index);
+          this.$router.push({
+            path:route
+          });
+          this.curIndex = index
+        }
+
 
       }
     }
@@ -44,7 +49,8 @@
     height: 60px;
     display: flex;
   }
-  .navbar-wraper .navbar{
+
+  .navbar-wraper .navbar {
     margin: 0 15px;
   }
 </style>

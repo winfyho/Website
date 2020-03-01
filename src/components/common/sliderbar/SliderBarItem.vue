@@ -1,6 +1,6 @@
 <template>
     <div class="slider-bar-item">
-        <span class="icon">></span>
+        <!-- <span class="icon">></span> -->
         <span class="text">{{title}}</span>
     </div>
 

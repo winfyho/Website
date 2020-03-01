@@ -6,13 +6,14 @@ import Study from "../views/study/Study.vue"
 import Tools from "../views/tools/Tools.vue"
 import About from "../views/about/About.vue"
 
+import studyRoutes from "./study.js"
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path:'',
-        redirect:'/home'
+        redirect:'/study'
     },
     {
         path:'/home',
@@ -20,7 +21,8 @@ const routes = [
     },
     {
         path:'/study',
-        component:Study
+        component:Study,
+        children:studyRoutes
     },
     {
         path:'/tools',

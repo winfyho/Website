@@ -75,17 +75,30 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .study {
+        position: absolute;
+        top: var(--navbar-height);
+        bottom: 0;
+        left: 0;
+        right: 0;
         box-sizing: border-box;
         width: 100%;
-        height: 100%;
+        /* height: 100%; */
         overflow: hidden;
+
+    }
+    .study .tab-control{
+        top: 0px;
     }
     .study .tab-view{
+        position: absolute;
+        top:var(--tabcontrol-height);
+        bottom: 0;
+        left: 0;
+        right: 0;
         box-sizing: border-box;
-        padding-top: 62px;
         display: flex;
         width: 100%;
-        height: 100%;
+        
         
     }
     

@@ -1,6 +1,8 @@
 :root{
     --color-title:#41B883;
     --color-background:#41B883;
+    --navbar-height:61px;
+    --tabcontrol-height:60px;
 }
 html{
     width: 100%;

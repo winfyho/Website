@@ -30,6 +30,7 @@
     .head-nav{
         width: 100%;
         height: 60px;
+        box-sizing: border-box;
         border-bottom: 1px solid #d5d5d5;
     }
     .head-nav .head-content{

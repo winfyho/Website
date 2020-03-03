@@ -2,8 +2,14 @@
     <div class="slider-bar">
         <ul>
             <li v-for="(val,key) in pager" @click="sliderClick(key,val)">
-                <SliderBarItem :title="val.title" 
-                :class="{active:curBarKey === key }" />
+                <SliderBarItem 
+                @child-click="childClick"
+                :children="val.chidren"
+                :title="val.title" 
+                :class="{active:curBarKey === key }"
+                :active="curBarKey === key?true:false" />
+
+                
             </li>
 
         </ul>
@@ -22,16 +28,25 @@
         props: ['pager','pagerRootName'],
         data(){
             return{
-                curBarKey:""
+                curBarKey:"",
             }
         },
         methods:{
+            childClick(child){
+                // console.log(path);
+                this.curBarKey = child.parent
+                const path = `./markdown/${this.pagerRootName}/${child.parent}/${child.title}`
+                this.$emit("sliderbar-click",path)                
+            },
             sliderClick(key,bar){
-                this.curBarKey = key
                 // console.log(key,bar,this.curPagerIndex);
                 if(!bar.showChild){
+                this.curBarKey = key
                     let path = `./markdown/${this.pagerRootName}/${bar.path}`
                     this.$emit("sliderbar-click",path)
+                    
+                }else{
+                    // console.log(bar.chidren);
                     
                 }
                 

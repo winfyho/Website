@@ -29,7 +29,8 @@
 
     methods: {
       routeChange(route, index) {
-        if (index != this.curIndex) {
+        
+        if (this.$router.history.current.path !== route) {
           this.$router.push({
             path:route
           });

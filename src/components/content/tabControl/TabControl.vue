@@ -77,7 +77,7 @@
 }
 .tab-control ul li span.title{
     padding: 0 20px;
-    height: 40px;
+    height: 38px;
     line-height: 40px;
 }
 </style>

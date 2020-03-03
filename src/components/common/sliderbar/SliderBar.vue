@@ -1,8 +1,9 @@
 <template>
     <div class="slider-bar">
         <ul>
-            <li v-for="(val,key) in pager" @click="changeSlider(key)">
-                <SliderBarItem :title="val.title" :class="{active:key === curPagerIndex }" />
+            <li v-for="(val,key) in pager" @click="sliderClick(key,val)">
+                <SliderBarItem :title="val.title" 
+                :class="{active:curBarKey === key }" />
             </li>
 
         </ul>
@@ -16,17 +17,25 @@
     export default {
         name: "SliderBar",
         components: {
-            SliderBarItem
+            SliderBarItem,
         },
-        props: ['pager','curPagerIndex'],
+        props: ['pager','pagerRootName'],
+        data(){
+            return{
+                curBarKey:""
+            }
+        },
         methods:{
-            changeSlider(key){
-                console.log(key);
+            sliderClick(key,bar){
+                this.curBarKey = key
+                // console.log(key,bar,this.curPagerIndex);
+                if(!bar.showChild){
+                    let path = `./markdown/${this.pagerRootName}/${bar.path}`
+                    this.$emit("sliderbar-click",path)
+                    
+                }
                 
-                // this.$emit("change-slider",{
-                //     name:this.pager[0].name,
-                //     index,
-                // })
+                
             }
         }
     }
@@ -35,15 +44,15 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .slider-bar {
-
+        box-sizing: border-box;
         flex: 0 0 auto;
         width: auto;
-        /* min-width: 200px; */
+        min-width: 300px;
         height: 100%;
         overflow-y: auto;
         padding: 20px;
         padding-left: 25px;
-        
+        box-shadow: 2px 8px 8px rgba(0, 0, 0, .3)
     }
 
     .slider-bar ul li {
@@ -51,6 +60,8 @@
         width: 100%;
         height: auto;
         padding: 5px 0;
+        /* transition: .3s;
+        transform: translateX(-20%); */
         /* border-bottom:1px solid #ddd; */
     }
 </style>

@@ -5,6 +5,7 @@ import Home from "../views/home/Home.vue"
 import Study from "../views/study/Study.vue"
 import Tools from "../views/tools/Tools.vue"
 import About from "../views/about/About.vue"
+import Search from "../views/search/Search.vue"
 
 import studyRoutes from "./study.js"
 
@@ -31,6 +32,10 @@ const routes = [
     {
         path:'/about',
         component:About
+    },
+    {
+        path:'/search',
+        component:Search
     },
 ]
 

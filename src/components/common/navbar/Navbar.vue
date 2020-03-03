@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-wraper">
     <div v-for="(item,index) in navbars" class="navbar" @click="routeChange(item.url,index)">
-      <NavbarItem :route="item" :class="{active:index===curIndex}"></NavbarItem>
+      <NavbarItem :route="item" :class="{active:index===curNavIndex}"></NavbarItem>
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@
     components: {
       NavbarItem
     },
-
+    props:["curNavIndex"],
     data() {
       return {
         navbars: [
@@ -23,18 +23,17 @@
           { title: "组件", url: "/tools" },
           { title: "关于", url: "/about" },
         ],
-        curIndex: 1
+        // curNavIndex: 1
       }
     },
 
     methods: {
       routeChange(route, index) {
         if (index != this.curIndex) {
-          console.log(route, index);
           this.$router.push({
             path:route
           });
-          this.curIndex = index
+          this.$emit("navbar-click",index)
         }
 
 

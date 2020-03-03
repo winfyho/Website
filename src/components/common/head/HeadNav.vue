@@ -2,8 +2,8 @@
     <div class="head-nav">
         <header class="head-content">
                 <Icon />
-                <NavBar />
-                <SearchBar />
+                <NavBar :curNavIndex="curNavIndex" @navbar-click="navbarClick" />
+                <SearchBar @search="getSearchResults" />
         </header>
     </div>
 
@@ -20,6 +20,21 @@
             Icon,
             NavBar,
             SearchBar
+        },
+        data(){
+            return{
+                curNavIndex:0
+            }
+        },
+        methods:{
+            navbarClick(index){
+                // console.log(index);
+                this.curNavIndex = index       
+            },
+            getSearchResults(results){
+                this.$emit("updata-search",results)
+                this.navbarClick(-1)
+            }
         }
 
     }

@@ -27,10 +27,10 @@
     },
     created() {
       // 发送网络请求
-      getHomeData().then(res => {
-        console.log("home网络请求", res);
-        this.results = res
-      })
+      // getHomeData().then(res => {
+      //   console.log("home网络请求", res);
+      //   this.results = res
+      // })
     }
   }
 </script>

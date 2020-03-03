@@ -24,7 +24,7 @@ export function getFileList(fileIndexName) {
                 pagerData[fileName].list.push({
                     showChild: listItemS.length > 3 ? true : false,
 
-                    subFile:listItemS.length > 3 ? listItemS[2] : '',
+                    subFile: listItemS.length > 3 ? listItemS[2] : '',
                     path: listItemS.length > 3 ? listItemS[3] : listItemS[2],
                 })
             }
@@ -38,14 +38,14 @@ export function getFileList(fileIndexName) {
     // console.log("pagerList",fileIndexName, pagerList);
 
     let data = {}
-    pagerList.forEach((item,index) => {
+    pagerList.forEach((item, index) => {
         if (item.showChild) {
 
             if (!data[item.subFile]) {
                 data[item.subFile] = {
                     index,
                     title: item.subFile,
-                    path: item.subFile+'/',
+                    path: item.subFile + '/',
                     showChild: true,
                     chidren: [{
                         title: item.path,
@@ -59,7 +59,7 @@ export function getFileList(fileIndexName) {
                 })
             }
         } else {
-            let title = item.path.replace(".md","")
+            let title = item.path.replace(".md", "")
             data[title] = {
                 index,
                 title,
@@ -74,5 +74,11 @@ export function getFileList(fileIndexName) {
 
 
 
-    return []
+    return data
+}
+
+export function getAllFiles() {
+    const filesMD = require.context(`../../public`, true, /\.md$/);
+    const filesMDNames = filesMD.keys();
+    return  filesMDNames  
 }

@@ -7,7 +7,10 @@
                 :defaultOpen="'preview'"
                 :subfield=false
                 :editable="false"
-                :toolbarsFlag="false"></mavon-editor>
+                :toolbarsFlag="false"
+                :previewBackground="'#fff'"
+                :boxShadowStyle="''"
+                ></mavon-editor>
         </div>
     </div>
 
@@ -36,11 +39,14 @@
     padding: 20px 40px;  
     padding-bottom: 0px;
     border-left: 1px solid #eee;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .page .markdown{
     min-width: 500px;
     max-width: 800px;
     margin: 0 auto;
+}
+.page .markdown .markdown-body{
+    border: none;
 }
 </style>

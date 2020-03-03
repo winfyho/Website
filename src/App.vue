@@ -1,34 +1,47 @@
 <template>
   <div id="app">
-    <head-nav></head-nav>
-    
-    <router-view></router-view>
+    <head-nav @updata-search="updateSearch"></head-nav>
+    <!-- <Search :results="results" /> -->
+    <router-view :results="results"></router-view>
 
-    
+
 
   </div>
 </template>
 <script>
   import HeadNav from "components/common/head/HeadNav.vue"
+  import Search from "views/search/Search.vue"
   import axios from "axios"
-  import {getStudyPager} from "network/study.js"
+  import { getStudyPager } from "network/study.js"
 
   export default {
     name: 'app',
     components: {
       HeadNav,
+      Search
     },
     data() {
       return {
-        mark: ``,
-        toolbarsFlag:false
+        results: []
+      }
+    },
+    methods: {
+      updateSearch(res) {
+        console.log("更新搜索结果", res);
+        this.results = res
+        if (this.$router.history.current.path !== "/search") {
+          this.$router.push({
+            path: 'search'
+          })
+        }
+
 
       }
     },
-    
+
     created() {
       // getStudyPager()
-      
+
     }
   }
 </script>

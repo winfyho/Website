@@ -1,8 +1,8 @@
 <template>
     <div class="slider-bar">
         <ul>
-            <li v-for="(item,index) in pager" @click="changeSlider(index)">
-                <SliderBarItem :title="item.title" :class="{active:index === curPagerIndex }" />
+            <li v-for="(val,key) in pager" @click="changeSlider(key)">
+                <SliderBarItem :title="val.title" :class="{active:key === curPagerIndex }" />
             </li>
 
         </ul>
@@ -20,11 +20,13 @@
         },
         props: ['pager','curPagerIndex'],
         methods:{
-            changeSlider(index){
-                this.$emit("change-slider",{
-                    name:this.pager[0].name,
-                    index,
-                })
+            changeSlider(key){
+                console.log(key);
+                
+                // this.$emit("change-slider",{
+                //     name:this.pager[0].name,
+                //     index,
+                // })
             }
         }
     }

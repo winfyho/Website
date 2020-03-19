@@ -18,9 +18,9 @@
     data() {
       return {
         navbars: [
-          { title: "首页", url: "/home" },
+          // { title: "首页", url: "/search" },
           { title: "学习", url: "/study" },
-          { title: "组件", url: "/tools" },
+          // { title: "组件", url: "/tools" },
           { title: "关于", url: "/about" },
         ],
         // curNavIndex: 1

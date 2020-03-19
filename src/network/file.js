@@ -69,7 +69,7 @@ export function getFileList(fileIndexName) {
             }
         }
     })
-    console.log(fileIndexName, data);
+    // console.log(fileIndexName, data);
 
 
 

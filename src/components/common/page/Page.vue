@@ -34,9 +34,10 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .page{
+    background: #f8f8f8;
     box-sizing: border-box;
     width: 100%;
-    padding: 20px 40px;  
+    padding: 0px 40px;  
     padding-bottom: 0px;
     border-left: 1px solid #eee;
     overflow-y: auto;

@@ -4,9 +4,7 @@
         <TabControl :tabs="tabs" @bar-click="barClick" />
 
         <div class="tab-view">
-            <SliderBar :pager="curPager" 
-            :pagerRootName="pagerRootName"
-            @sliderbar-click="sliderBarClick" />
+            <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" @sliderbar-click="sliderBarClick" />
 
             <Page :htmlMD="htmlMD" />
         </div>
@@ -19,8 +17,9 @@
     import TabControl from "components/content/tabControl/TabControl.vue"
     import SliderBar from "components/common/sliderbar/SliderBar.vue"
     import Page from "components/common/page/Page.vue"
+    import axios from "axios"
 
-    import { getStudyPager,getStudyMDFile } from "network/study.js"
+    import { getStudyMDFile } from "network/study.js"
     export default {
         name: "Study",
         components: {
@@ -36,38 +35,57 @@
                     { title: "markdown" },
                     { title: "vue" },
                 ],
-                curPager: {},
-                pagerRootName:'',
-                htmlMD:``
+                sliderBarIndex: 0,
+                htmlMD: ``,
+                topic: "css3",
+                articles: []
+            }
+        },
+        computed: {
+            catalogue() {
+                let list = this.articles.filter(item => {
+                    return item.topic === this.topic
+                })
+                // console.log(list,this.articles,this.topic);
+                return list
+            }
+        },
+        watch:{
+            catalogue:function(val, oldVal){
+                this.sliderBarIndex = 0
+                // console.log("watch",val,this.sliderBarIndex,this.catalogue[0].url);
+
+                this.getMDFile(this.catalogue[0].url)
+                
             }
         },
         methods: {
             barClick(res) {
-                this.getPager(res.title)
-                // this.htmlMD = ``
-                console.log("改变curPager",res.title,this.curPager);
-                
+                this.topic = res.title
+                console.log("改变topic", this.topic);
             },
-            sliderBarClick(path){
-                console.log("获取文件",path);
-                this.getMDFile(path)
-                
+            sliderBarClick(url) {
+                this.getMDFile(url)
             },
-            getMDFile(path){
-                getStudyMDFile(path).then(mdData => {
-                    console.log(mdData);
-                    this.htmlMD = mdData.data
+            getMDFile(url) {
+                console.log("获取文件", url);
+
+                getStudyMDFile(url).then(md => {
+                    console.log("获取的md", md);
+                    this.htmlMD = md.data
                 })
             },
-            getPager(pagerName) {
-                getStudyPager(pagerName).then(pager => {
-                    this.curPager = pager
-                    this.pagerRootName = pagerName
-                })
+            getArticles() {
+                axios.get(`http://127.0.0.1:3000/articles`)
+                    .then((res) => {
+                        console.log("文章列表", res.data);
+                        this.articles = res.data
+                    });
             }
+
         },
         created() {
-            this.getPager("css3")
+            this.getArticles()
         }
     }
 </script>
@@ -86,20 +104,21 @@
         overflow: hidden;
 
     }
-    .study .tab-control{
+
+    .study .tab-control {
         top: 0px;
     }
-    .study .tab-view{
+
+    .study .tab-view {
         position: absolute;
-        top:var(--tabcontrol-height);
+        top: var(--tabcontrol-height);
         bottom: 0;
         left: 0;
         right: 0;
         box-sizing: border-box;
         display: flex;
         width: 100%;
-        
-        
+
+
     }
-    
 </style>

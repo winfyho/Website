@@ -1,13 +1,11 @@
 <template>
     <div class="slider-bar">
         <ul>
-            <li v-for="(val,key) in pager" @click="sliderClick(key,val)">
+            <li v-for="(item,index) in catalogue" @click="sliderClick(item,index)">
                 <SliderBarItem 
-                @child-click="childClick"
-                :children="val.chidren"
-                :title="val.title" 
-                :class="{active:curBarKey === key }"
-                :active="curBarKey === key?true:false" />
+                :title="item.title" 
+                :class="{active:curIndex === index }"
+                :active="curIndex === index?true:false" />
 
                 
             </li>
@@ -25,30 +23,32 @@
         components: {
             SliderBarItem,
         },
-        props: ['pager','pagerRootName'],
+        props: ['catalogue','sliderBarIndex'],
         data(){
             return{
-                curBarKey:"",
+                curIndex:0,
+            }
+        },
+        watch:{
+            catalogue:function(){
+                this.curIndex= 0 
             }
         },
         methods:{
-            childClick(child){
-                // console.log(path);
-                this.curBarKey = child.parent
-                const path = `./markdown/${this.pagerRootName}/${child.parent}/${child.title}`
-                this.$emit("sliderbar-click",path)                
-            },
-            sliderClick(key,bar){
-                // console.log(key,bar,this.curPagerIndex);
-                if(!bar.showChild){
-                this.curBarKey = key
-                    let path = `./markdown/${this.pagerRootName}/${bar.path}`
-                    this.$emit("sliderbar-click",path)
+            
+            sliderClick(item,index){
+                this.curIndex = index
+
+                // console.log(item.url,index);
+                this.$emit("sliderbar-click",item.url)
+
+                // if(!bar.showChild){
+                //     let path = `./markdown/${this.pagerRootName}/${bar.path}`
                     
-                }else{
-                    // console.log(bar.chidren);
+                // }else{
+                //     // console.log(bar.chidren);
                     
-                }
+                // }
                 
                 
             }
@@ -63,10 +63,13 @@
         flex: 0 0 auto;
         width: auto;
         min-width: 300px;
+        max-width: 350px;
         height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
         padding: 20px;
-        padding-left: 25px;
+        padding-left: 30px;
+        z-index: 3;
         box-shadow: 2px 8px 8px rgba(0, 0, 0, .3)
     }
 
@@ -74,7 +77,6 @@
         cursor: pointer;
         width: 100%;
         height: auto;
-        padding: 5px 0;
         /* transition: .3s;
         transform: translateX(-20%); */
         /* border-bottom:1px solid #ddd; */

@@ -1,12 +1,13 @@
 <template>
     <div class="study">
 
-        <TabControl :tabs="tabs" @bar-click="barClick" />
+
+        <TabControl :tabs="tabs" :curBarName="topic" @bar-click="barClick" />
 
         <div class="tab-view">
             <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" @sliderbar-click="sliderBarClick" />
 
-            <Page :htmlMD="htmlMD" />
+            <Page :htmlMD="htmlMD" :curArticle="$store.state.curArticle" />
         </div>
     </div>
 
@@ -27,6 +28,7 @@
             SliderBar,
             Page
         },
+        props: ['type'],
         data() {
             return {
                 tabs: [
@@ -37,42 +39,58 @@
                 ],
                 sliderBarIndex: 0,
                 htmlMD: ``,
-                topic: "css3",
-                articles: []
+                topic: this.$route.query.type || 'css3',
+                id: '',
+                articles: [],
             }
         },
         computed: {
+            // catalogue会随着topic变化
             catalogue() {
                 let list = this.articles.filter(item => {
                     return item.topic === this.topic
                 })
-                // console.log(list,this.articles,this.topic);
                 return list
-            }
-        },
-        watch:{
-            catalogue:function(val, oldVal){
-                this.sliderBarIndex = 0
-                // console.log("watch",val,this.sliderBarIndex,this.catalogue[0].url);
+            },
 
-                this.getMDFile(this.catalogue[0].url)
-                
+        },
+        watch: {
+            // 默认加载当前分类目录第一个
+            catalogue: function (val, oldVal) {
+                // console.log("watch",val,this.sliderBarIndex,this.catalogue[0].url);
+                this.sliderBarIndex = 0
+                this.getMDFile(this.catalogue[0])
+            },
+            // id变化加载对应文章
+            id: function (val, oldVal) {
+                let result = {}
+                this.catalogue.forEach((item, index) => {
+                    if (item._id === val) {
+                        result = item
+                        this.sliderBarIndex = index
+                    }
+                })
+                console.log("选择文章", val, result.url, this.sliderBarIndex);
+                this.getMDFile(result)
             }
         },
         methods: {
             barClick(res) {
+                // catalogue会随着topic变化
                 this.topic = res.title
-                console.log("改变topic", this.topic);
+                this.$router.push(`study?type=${this.topic}&id=${this.catalogue[0]._id}`)
             },
-            sliderBarClick(url) {
-                this.getMDFile(url)
+            sliderBarClick(item) {
+                this.id = item._id
+                this.$router.push(`study?type=${this.topic}&id=${item._id}`)
             },
-            getMDFile(url) {
-                console.log("获取文件", url);
+            getMDFile(item) {
+                let url = item.url
 
                 getStudyMDFile(url).then(md => {
-                    console.log("获取的md", md);
+                    this.$store.commit('changeArticle', item)
                     this.htmlMD = md.data
+                    // console.log("获取文件",  md);
                 })
             },
             getArticles() {
@@ -80,9 +98,14 @@
                     .then((res) => {
                         console.log("文章列表", res.data);
                         this.articles = res.data
+                        this.id = this.$route.query.id
+                        this.$store.commit('setStudyArticles', res.data)
                     });
             }
 
+        },
+        beforeCreate() {
+            console.log("router query", this.$route.query);
         },
         created() {
             this.getArticles()

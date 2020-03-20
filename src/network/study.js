@@ -1,4 +1,4 @@
-import { request } from "./reques.js"
+import { request } from "./request.js"
 import { getFileList } from "./file.js"
 import axios from 'axios'
 
@@ -14,4 +14,6 @@ export function getStudyMDFile(url) {
 
     })
 }
+
+
 

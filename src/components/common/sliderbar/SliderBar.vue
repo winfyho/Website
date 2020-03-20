@@ -2,12 +2,10 @@
     <div class="slider-bar">
         <ul>
             <li v-for="(item,index) in catalogue" @click="sliderClick(item,index)">
-                <SliderBarItem 
-                :title="item.title" 
-                :class="{active:curIndex === index }"
-                :active="curIndex === index?true:false" />
+                <SliderBarItem :title="item.title" :class="{active:sliderBarIndex === index }"
+                    :active="sliderBarIndex === index?true:false" />
 
-                
+
             </li>
 
         </ul>
@@ -23,34 +21,21 @@
         components: {
             SliderBarItem,
         },
-        props: ['catalogue','sliderBarIndex'],
-        data(){
-            return{
-                curIndex:0,
+        props: ['catalogue', 'sliderBarIndex'],
+        data() {
+            return {
+                num: 0,
             }
         },
-        watch:{
-            catalogue:function(){
-                this.curIndex= 0 
-            }
-        },
-        methods:{
-            
-            sliderClick(item,index){
-                this.curIndex = index
+        methods: {
 
-                // console.log(item.url,index);
-                this.$emit("sliderbar-click",item.url)
+            sliderClick(item, index) {
+                if (index !== this.sliderBarIndex) {
+                    // console.log(item.url,index);
+                    this.$emit("sliderbar-click", item)
+                }
 
-                // if(!bar.showChild){
-                //     let path = `./markdown/${this.pagerRootName}/${bar.path}`
-                    
-                // }else{
-                //     // console.log(bar.chidren);
-                    
-                // }
-                
-                
+
             }
         }
     }

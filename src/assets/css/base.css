@@ -3,6 +3,7 @@
 :root{
     --color-title:#41B883;
     --color-background:#41B883;
+    --color-tag:#FF5C38;
     --navbar-height:61px;
     --tabcontrol-height:60px;
 }
@@ -26,6 +27,7 @@ ul,ol{
 }
 a,i,b,em{
     text-decoration: none;
+    font-style: normal;
     color: #000;
 }
 h1{
@@ -44,4 +46,38 @@ input{
     border: none;
     padding: 0;
     offset: 0;
+}
+button,
+.btn{
+    background: none;
+    outline: none;
+    border: none;
+    background: var(--color-background);
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.tag{
+    display: inline-block;
+    width: auto;
+    padding: 0 10px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    background: var(--color-tag);
+    border-radius: 12px;
+    color: #fff;
+}
+.triangle::before{
+    content: '';
+    /* text-indent: 20px; */
+    display: block;
+    font-size: 0;
+    padding: 0;
+    border: 14px solid transparent;
+    margin-right: 0px;
+    border-left-color: #333;
+    /* border-top-color: #333; */
+    transform: scale(0.7);
 }

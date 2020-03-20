@@ -1,4 +1,4 @@
-import { request } from "./reques.js"
+import { request } from "./request.js"
 
 
 export function getHomeData() {

@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <SliderBar />
-    <Page />
+    <h1>Home page</h1>
 
   </div>
 

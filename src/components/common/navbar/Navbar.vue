@@ -1,8 +1,14 @@
 <template>
   <div class="navbar-wraper">
-    <div v-for="(item,index) in navbars" class="navbar" @click="routeChange(item.url,index)">
+    <!-- <div v-for="(item,index) in navbars" class="navbar" @click="routeChange(item.url,index)">
       <NavbarItem :route="item" :class="{active:index===curNavIndex}"></NavbarItem>
-    </div>
+    </div> -->
+    <ul>
+      <li v-for="(item,index) in navbars" class="navbar">
+        <router-link class="router-link" :to="item.url">{{item.title}}</router-link>
+      </li>
+    </ul>
+
   </div>
 </template>
 
@@ -14,14 +20,14 @@
     components: {
       NavbarItem
     },
-    props:["curNavIndex"],
+    props: ["curNavIndex"],
     data() {
       return {
         navbars: [
-          // { title: "首页", url: "/search" },
+          // { title: "首页", url: "/home" },
           { title: "前端文档", url: "/study" },
           // { title: "组件", url: "/tools" },
-          { title: "关于", url: "/about" },
+          { title: "足迹", url: "/profile" },
         ],
         // curNavIndex: 1
       }
@@ -29,12 +35,12 @@
 
     methods: {
       routeChange(route, index) {
-        
+
         if (this.$router.history.current.path !== route) {
           this.$router.push({
-            path:route
+            path: route
           });
-          this.$emit("navbar-click",index)
+          this.$emit("navbar-click", index)
         }
 
 
@@ -47,10 +53,43 @@
 <style scoped>
   .navbar-wraper {
     height: 60px;
+
+  }
+
+  .navbar-wraper ul {
     display: flex;
+  }
+
+  .navbar-wraper ul li {
+    position: relative;
+  }
+
+  .navbar-wraper .navbar .router-link::after {
+    content: '';
+    display: block;
+    height: 6px;
+    width: 0;
+    border-radius: 2px;
+    background: var(--color-background);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateX(50%);
+    transition: .3s ease-out;
+  }
+
+  .navbar-wraper .navbar .router-link-active::after {
+    width: 100%;
+    transform: translateX(0%);
   }
 
   .navbar-wraper .navbar {
     margin: 0 15px;
+  }
+
+  .navbar-wraper .navbar .router-link {
+    display: block;
+    height: 100%;
+    line-height: 60px;
   }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="winfy-icon">
-        <div>个人博客</div>
+        <div>winfyho</div>
     </div>
 
 

@@ -5,7 +5,8 @@
         <TabControl :tabs="tabs" :curBarName="topic" @bar-click="barClick" />
 
         <div class="tab-view">
-            <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" @sliderbar-click="sliderBarClick" />
+            <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" 
+            @sliderbar-click="sliderBarClick" />
 
             <Page :htmlMD="htmlMD" :curArticle="$store.state.curArticle" />
         </div>
@@ -20,7 +21,7 @@
     import Page from "components/common/page/Page.vue"
     import axios from "axios"
 
-    import { getStudyMDFile } from "network/study.js"
+    import { getStudyMDFile,Article } from "network/study.js"
     export default {
         name: "Study",
         components: {
@@ -86,12 +87,14 @@
             },
             getMDFile(item) {
                 let url = item.url
+                if (url) {
+                    getStudyMDFile(url).then(md => {
+                        this.$store.commit('changeArticle', item)
+                        this.htmlMD = md.data
+                        // console.log("获取文件",  md);
+                    })
+                }
 
-                getStudyMDFile(url).then(md => {
-                    this.$store.commit('changeArticle', item)
-                    this.htmlMD = md.data
-                    // console.log("获取文件",  md);
-                })
             },
             getArticles() {
                 axios.get(`http://127.0.0.1:3000/articles`)
@@ -107,7 +110,10 @@
         beforeCreate() {
             console.log("router query", this.$route.query);
         },
+        
         created() {
+            
+            
             this.getArticles()
         }
     }

@@ -41,8 +41,7 @@
           time:new Date().getTime(),
           likes:0
         }
-        console.log(comment)
-        postComment(comment).then(res => {
+        this.$store.state.curArticle.postComment(comment).then(res => {
           console.log("添加评论成功",res.data);
           this.content = ""
           this.$store.commit('changeArticle',res.data)

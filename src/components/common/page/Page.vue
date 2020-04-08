@@ -1,15 +1,15 @@
 <template>
-    <div class="page" id="scroll-top">
+    <div class="page" id="scroll-top" ref="view">
         <div class="markdown">
             <mavon-editor :value="htmlMD" :boxShadow="false" :defaultOpen="'preview'" :subfield=false :editable="false"
                 :toolbarsFlag="false" :previewBackground="'#fff'" :boxShadowStyle="''"></mavon-editor>
 
-            <GuideBar />
+            <GuideBar @scroll="scrollTo" @to-comment="scrollToComment" />
             
         </div>
 
 
-        <Comments id="scoll-comment" />
+        <Comments ref="comment" id="scoll-comment" />
     </div>
 
 
@@ -19,7 +19,7 @@
     import Comments from "components/common/comments/Comments.vue"
     import GuideBar from "components/content/guideBar/GuideBar.vue"
 
-    import {addArticleViews} from "network/article.js"
+    import {Article} from "network/article.js"
     export default {
         name: "",
         components: {
@@ -36,12 +36,35 @@
             }
         },
         updated() {
+            this.$refs.view.scrollTop = 0
             this.updateArticleViews()
         },
         methods: {
+            
             updateArticleViews() {
-                // console.log("当前文章浏览数", this.curArticle.views);
-                addArticleViews(this.curArticle._id,this.curArticle.views)
+                this.curArticle.addArticleViews().then(views => {
+                    // console.log("当前文章浏览数", this.curArticle,views);
+                })
+            },
+            scrollToComment(){
+                // console.log("to-comment",this.$refs.comment.$el.offsetTop)
+                this.$refs.view.scrollTop = this.$refs.comment.$el.offsetTop
+                
+            },
+            scrollTo(target){
+                
+                let speed = 70
+                // console.log("scroll-top",target)
+                let timer = setInterval(() => {
+                    if(this.$refs.view.scrollTop === 0){
+                        clearInterval(timer)
+                    }else{
+                        this.$refs.view.scrollTop -= speed
+                        speed += 1
+                    }
+                    
+                }, 16.7);
+                
             }
         }
     }
@@ -50,6 +73,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .page {
+        position: relative;
         background: #f8f8f8;
         box-sizing: border-box;
         width: 100%;
@@ -57,6 +81,7 @@
         padding-bottom: 0px;
         border-left: 1px solid #eee;
         overflow-y: auto;
+        transition: .5s;
     }
 
     .page .markdown {

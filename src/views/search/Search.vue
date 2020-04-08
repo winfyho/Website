@@ -2,7 +2,7 @@
     <div class="search">
         <div class="results">
             <ul>
-                <li v-for="item in searchResults">
+                <li v-for="item in searchResults" @click="routeToArticle(item.topic,item._id)">
                     <SearchItem :searchItem="item" />
                 </li>
             </ul>
@@ -32,6 +32,12 @@
                 return this.$store.state.results
             },
             
+        },
+        methods:{
+            routeToArticle(type,id){
+                console.log(type,id)
+                this.$router.push({ path: 'study', query: { type,id } })
+            }
         }
     }
 </script>

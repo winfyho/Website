@@ -3,18 +3,19 @@
         <div class="views">
             <i></i><span>浏览{{article.views}}</span>
         </div>
-        <div class="likes" :class="{isLiked:isLiked}" @click="likeArticle" >
+        <div class="likes" :class="{isLiked:isLiked}" @click="likeArticle">
             <button></button><span>点赞{{article.likes}}</span>
         </div>
-        <div class="comments">
-            <a href="#scoll-comment" class="btn"></a><a href="#scoll-comment" class="text">评论{{comments.length}}</a>
+        <div class="comments" @click="handleScrollToCom">
+            <a class="btn"></a>
+            <a class="text">评论{{comments.length}}</a>
         </div>
         <div class="collect" :class="{isCollected:isCollected}" @click="collectArticle">
             <button></button>
             <span>{{isCollected === true ? '已收藏':'收藏'}}</span>
         </div>
         <div class="scoll-top">
-            <button></button>
+            <button @click="handleScrollTop"></button>
         </div>
     </div>
 
@@ -28,8 +29,11 @@
 
         data() {
             return {
+                isLiked: false,
+                isCollected: false
             }
         },
+
         computed: {
             article() {
                 return this.$store.state.curArticle
@@ -37,58 +41,45 @@
             comments() {
                 return this.$store.state.curArticle.comments
             },
-            isCollected() {
-                let isColl = false
-                let localStorage = window.localStorage.getItem("collect_articles")
-                let collect_articles = localStorage ? JSON.parse(localStorage) : []
-                collect_articles.forEach(item => {
-                    if (item._id === this.article._id) {
-                        isColl = true
-                    }
-                })
-                return isColl
-            },
-            isLiked() {
-                let isLiked = false
-                let localStorage = window.localStorage.getItem("like_articles")
-                let collect_articles = localStorage ? JSON.parse(localStorage) : []
-                collect_articles.forEach(item => {
 
-                    if (item._id === this.article._id) {
-                        isLiked = true
-                    }
-                })
-
-                return isLiked
-            },
 
         },
+        watch: {
+            article(value) {
+                this.findIsLiked()
+                this.findIsCollected()
+            }
+        },
         methods: {
+            handleScrollToCom() {
+                this.$emit('to-comment', 0)
+            },
+            handleScrollTop() {
+                this.$emit('scroll', 0)
+            },
+            // 点赞文章
             likeArticle() {
-                // window.localStorage.setItem("like_articles", "")
-                let id = this.article._id
 
+                // window.localStorage.setItem("like_articles", "")
                 if (!this.isLiked) {
                     let localStorage = window.localStorage.getItem("like_articles")
                     let like_articles = localStorage ? JSON.parse(localStorage) : []
 
                     like_articles.unshift(this.article)
                     window.localStorage.setItem("like_articles", JSON.stringify(like_articles))
-                    this.article._id = ''
 
-                    console.log("点赞文章", this.article);
-                    updateArticleLikes(id, this.article.likes + 1).then(likes=> {
-                        // this.likes = likes
+                    this.article.addArticleLikes().then(likes => {
+                        console.log("点赞文章", this.article._id,likes);
+                        this.isLiked = true
                     })
-                } else {
-                    console.log(this.article.title, '已经点赞过了！！！');
-
                 }
-                this.article._id = id
+
+
             },
+
+            // 收藏文章
             collectArticle() {
                 // window.localStorage.setItem("collect_articles", "")
-
                 if (!this.isCollected) {
                     let localStorage = window.localStorage.getItem("collect_articles")
                     let collect_articles = localStorage ? JSON.parse(localStorage) : []
@@ -96,16 +87,36 @@
                     collect_articles.unshift(this.article)
                     window.localStorage.setItem("collect_articles", JSON.stringify(collect_articles))
 
-                    console.log("收藏文章", this.article.title, collect_articles, !this.isCollected);
-                } else {
-                    console.log(this.article.title, '已经被收藏了');
-
+                    console.log("收藏文章", this.article.title);
+                    this.isCollected = true
                 }
-                let id = this.article._id
-                this.article._id = ''
-                this.article._id = id
+
             },
 
+            findIsLiked() {
+                this.isLiked = false
+                let localStorage = window.localStorage.getItem("like_articles")
+                // console.log(JSON.parse(localStorage))
+
+                let collect_articles = localStorage ? JSON.parse(localStorage) : []
+                collect_articles.forEach(item => {
+
+                    if (item._id === this.article._id) {
+                        this.isLiked = true
+                    }
+                })
+            },
+
+            findIsCollected() {
+                this.isCollected = false
+                let localStorage = window.localStorage.getItem("collect_articles")
+                let collect_articles = localStorage ? JSON.parse(localStorage) : []
+                collect_articles.forEach(item => {
+                    if (item._id === this.article._id) {
+                        this.isCollected = true
+                    }
+                })
+            }
         }
 
     }
@@ -152,6 +163,7 @@
     .guide-bar div.likes button {
         background-image: url('~assets/icon/like.png');
     }
+
     .guide-bar div.isLiked button {
         background-image: url('~assets/icon/like_active.png');
     }

@@ -18,7 +18,7 @@ export class Article {
         return new Promise((resolve, reject) => {
             // console.log(`http://127.0.0.1:3000/article/views?id=${id}`);
             request({
-                url: `http://127.0.0.1:3000/article/views?id=${this._id}&num=${this.views+1}`,
+                url: `http://193.112.121.234/article/views?id=${this._id}&num=${this.views+1}`,
                 method: "get",
             }).then((res) => {
                 this.views += 1
@@ -28,10 +28,10 @@ export class Article {
     }
     addArticleLikes(){
         return new Promise((resolve,reject) => {
-            // console.log(`http://127.0.0.1:3000/article/views?id=${id}`);
+            // console.log(`http://193.112.121.234/article/views?id=${id}`);
             // console.log(id,newLikes);
             request({
-                url:`http://127.0.0.1:3000/article/like?id=${this._id}&newLikes=${this.likes+1}`,
+                url:`http://193.112.121.234/article/like?id=${this._id}&newLikes=${this.likes+1}`,
                 method:"get",
             }).then((res) => {
                 this.likes += 1
@@ -44,7 +44,7 @@ export class Article {
         return new Promise((resolve,reject) => {
             // console.log(comment);
             request({
-                url:"http://127.0.0.1:3000/comment/add",
+                url:"http://193.112.121.234/comment/add",
                 method:"post",
                 data:comment
             }).then((res) => {

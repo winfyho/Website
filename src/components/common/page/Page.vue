@@ -4,7 +4,7 @@
             <mavon-editor :value="htmlMD" :boxShadow="false" :defaultOpen="'preview'" :subfield=false :editable="false"
                 :toolbarsFlag="false" :previewBackground="'#fff'" :boxShadowStyle="''"></mavon-editor>
 
-            <GuideBar @scroll="scrollTo" @to-comment="scrollToComment" />
+            <GuideBar :article="curArticle" @scroll="scrollTo" @to-comment="scrollToComment" />
             
         </div>
 

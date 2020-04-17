@@ -26,18 +26,22 @@
     import { updateArticleLikes } from "network/article.js"
     export default {
         name: "GuideBar",
-
+        props:{
+            article:{
+                type:Object
+            }
+        },
         data() {
             return {
                 isLiked: false,
-                isCollected: false
+                isCollected: false,
             }
         },
 
         computed: {
-            article() {
-                return this.$store.state.curArticle
-            },
+            // article() {
+            //     return this.$store.state.curArticle
+            // },
             comments() {
                 return this.$store.state.curArticle.comments
             },

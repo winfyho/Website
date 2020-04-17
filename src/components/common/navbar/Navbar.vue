@@ -14,17 +14,17 @@
 
 
 <script>
-  import NavbarItem from "./NavbarItem.vue"
+  // import NavbarItem from "./NavbarItem.vue"
   export default {
     name: 'Navbar',
     components: {
-      NavbarItem
+      // NavbarItem
     },
     props: ["curNavIndex"],
     data() {
       return {
         navbars: [
-          // { title: "首页", url: "/home" },
+          { title: "首页", url: "/home" },
           { title: "前端文档", url: "/study" },
           // { title: "组件", url: "/tools" },
           { title: "足迹", url: "/profile" },
@@ -58,11 +58,16 @@
 
   .navbar-wraper ul {
     display: flex;
+    height: 100%;
   }
 
   .navbar-wraper ul li {
     position: relative;
   }
+  .navbar-wraper ul li a{
+    white-space: nowrap;
+  }
+  
 
   .navbar-wraper .navbar .router-link::after {
     content: '';

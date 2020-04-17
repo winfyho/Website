@@ -13,8 +13,9 @@ const store = new Vuex.Store({
     },
     mutations:{
         changeArticle(state,article){
-            state.curArticle = new Article(article)
-            // console.log("vuex curArticle",state.curArticle.title);
+            let newArticle = new Article(article)
+            state.curArticle = newArticle
+            // console.log("vuex curArticle",state.curArticle.views);
         },
         setStudyArticles(state,articles){
             state.studyArticles = articles

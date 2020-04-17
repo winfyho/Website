@@ -71,7 +71,7 @@
                         this.sliderBarIndex = index
                     }
                 })
-                console.log("选择文章", val, result.url, this.sliderBarIndex);
+                console.log("选择文章",result.title, this.sliderBarIndex);
                 this.getMDFile(result)
             }
         },
@@ -89,6 +89,8 @@
                 let url = item.url
                 if (url) {
                     getStudyMDFile(url).then(md => {
+                        // console.log(item)
+                        
                         this.$store.commit('changeArticle', item)
                         this.htmlMD = md.data
                         // console.log("获取文件",  md);
@@ -97,9 +99,9 @@
 
             },
             getArticles() {
-                axios.get(`http://127.0.0.1:3000/articles`)
+                axios.get(`http://193.112.121.234/articles`)
                     .then((res) => {
-                        console.log("文章列表", res.data);
+                        console.table(res.data);
                         this.articles = res.data
                         this.id = this.$route.query.id
                         this.$store.commit('setStudyArticles', res.data)
@@ -108,7 +110,7 @@
 
         },
         beforeCreate() {
-            console.log("router query", this.$route.query);
+            // console.log("router query", this.$route.query);
         },
         
         created() {

@@ -1,6 +1,6 @@
 <template>
     <div class="winfy-icon">
-        <div>个人博客</div>
+        <div>Winfy Ho</div>
     </div>
 
 
@@ -20,5 +20,8 @@
 .winfy-icon div{
     height: 100%;
     line-height: 60px;
+    font-weight: 700;
+    font-size: 24px;
+    color: #36CFB1;
 }
 </style>

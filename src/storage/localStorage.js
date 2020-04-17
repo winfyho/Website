@@ -8,10 +8,11 @@ export function getLocalStorage(key){
 }
 
 export function setLocalStorage(key,value){
-    if(value){
-        window.localStorage.setItem("item",JSON.stringify(value))
+    if(value || value === null){
+        window.localStorage.setItem(key,JSON.stringify(value))
         return {
             state:"success",
+            
             setData:{...value}
         }
     }else{

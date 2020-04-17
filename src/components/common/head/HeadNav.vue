@@ -4,6 +4,7 @@
                 <Icon />
                 <NavBar :curNavIndex="curNavIndex" @navbar-click="navbarClick" />
                 <SearchBar @search="getSearchResults" />
+                <SignBar />
         </header>
     </div>
 
@@ -14,12 +15,14 @@
     import Icon from "./Icon.vue"
     import NavBar from "components/common/navbar/Navbar.vue"
     import SearchBar from "components/common/searchbar/SearchBar.vue"
+    import SignBar from "components/common/signbar/SignBar.vue"
     export default {
         name: "HeadNav",
         components: {
             Icon,
             NavBar,
-            SearchBar
+            SearchBar,
+            SignBar
         },
         data(){
             return{
@@ -46,6 +49,10 @@
         width: 100%;
         height: 60px;
         border-bottom: 1px solid #d5d5d5;
+        white-space: nowrap;
+    }
+    .head-nav header{
+        height: 100%;
     }
     .head-nav .head-content{
         max-width: 1200px;
@@ -57,7 +64,6 @@
     }
     .head-nav .head-content .winfy-icon{
         flex: 1 1 auto  ;
-        min-width: 100px;
     }
     .head-nav .head-content .navbar-wraper{
         flex: 1 1 auto;

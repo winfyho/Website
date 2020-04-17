@@ -1,19 +1,22 @@
 # website
 
-## Project setup
-```
-npm install
-```
+## 前端
+- vue
+- vue-router
+- vuex
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 首页
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 文档页
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 收藏
+
+### 搜索
+
+## 服务端
+- node.Js
+- koa
+
+## 后端
+- mongodb
+- mongoose

@@ -18,7 +18,7 @@
   import Articles from "components/content/articles/Articles.vue"
   import Recommend from "components/content/recommend/Recommend.vue"
 
-  import { getHomeData } from "network/home.js"
+  import { request } from "network/request.js"
   import { articles } from "common/articles.js"
 
   export default {
@@ -35,9 +35,20 @@
       }
     },
     created() {
-      console.log(articles)
       this.recommends = articles
       this.articles = articles
+      console.log()
+      
+      request({
+        url: '/article/all',
+        toast:this.$toast
+      }).then(articles => {
+        console.log(articles)
+        this.articles = articles
+        this.$toast.showToast()
+
+      })
+
     }
   }
 </script>
@@ -46,7 +57,7 @@
 <style scoped>
   .home {
     display: flex;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     overflow: scroll;
   }
@@ -54,7 +65,8 @@
   .home .slider-bar {
     flex: 0 0 300px;
   }
-  .wraper{
+
+  .wraper {
     padding-top: 15px;
     display: flex;
     justify-content: space-between;

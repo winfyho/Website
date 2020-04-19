@@ -108,19 +108,20 @@
           request({
             method: "get",
             url: `/login?username=${this.username}&password=${this.password}`
-          }).then(res => {
-            console.log(res.data)
-
-            if (res.data.success) {
-              this.$emit("sign", res.data.user)
-              setLocalStorage('user',res.data.user)
-              alert("登陆成功")
-            } else {
-              alert("登陆失败")
-            }
           })
+            .then(res => {
+                console.log(res)
+
+                if (res.success) {
+                  this.$emit("sign", res.user)
+                  setLocalStorage('user', res.user)
+                  alert("登陆成功")
+                } else {
+                  alert("登陆失败")
+                }
+            })
             .catch(err => {
-              alert("服务器繁忙")
+                alert("服务器繁忙")
             })
         }
 

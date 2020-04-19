@@ -26,7 +26,7 @@
         navbars: [
           { title: "首页", url: "/home" },
           { title: "前端文档", url: "/study" },
-          // { title: "组件", url: "/tools" },
+          { title: "管理", url: "/admin" },
           { title: "足迹", url: "/profile" },
         ],
         // curNavIndex: 1

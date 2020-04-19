@@ -46,7 +46,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .head-nav{
-        width: 100%;
+        width: 100vw;
         height: 60px;
         border-bottom: 1px solid #d5d5d5;
         white-space: nowrap;

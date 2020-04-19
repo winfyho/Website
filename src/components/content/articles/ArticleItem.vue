@@ -2,18 +2,14 @@
     <div class="article-item">
         <div class="top">
             <h3 @click="routeToDetail">{{article.title}}</h3>
-            <ul class="tags">
-                <li>css3</li>
-                <li>es6</li>
-                <li>vue</li>
+            <ul class="tags" >
+                <li v-for="tag in article.tags">{{tag}}</li>
             </ul>
         </div>
 
         <div class="body">
-            <img src="" alt="">
-            <div class="content">
-                章内容内内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容文章内容
-            </div>
+            <img :src="article.pre_img" alt="">
+            <div class="content">{{article.content}}</div>
         </div>
 
         <div class="bot">
@@ -43,7 +39,7 @@
         },
         methods:{
             routeToDetail(){
-                console.log(this.article.id)
+                console.log(this.article._id)
                 // this.$router.push({
                 //     path:`/study?type=${this.article.topic}&id=${this.article.id}`
                 // })

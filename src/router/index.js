@@ -9,6 +9,7 @@ import Home from "../views/home/Home.vue"
 const Study = () => import("../views/study/Study.vue")
 const Profile = () => import("../views/profile/Profile.vue")
 const Search = () => import("../views/search/Search.vue")
+const Admin = () => import("../views/admin/Admin.vue")
 import Tools from "../views/tools/Tools.vue"
 import About from "../views/about/About.vue"
 
@@ -18,33 +19,37 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path:'',
-        redirect:'/study'
+        path: '',
+        redirect: '/admin'
     },
     {
-        path:'/home',
-        component:Home
+        path: '/home',
+        component: Home
     },
     {
-        path:'/study',
-        component:Study,
-        children:studyRoutes
+        path: '/study',
+        component: Study,
+        children: studyRoutes
     },
     {
-        path:'/profile',
-        component:Profile,
+        path: '/profile',
+        component: Profile,
     },
     {
-        path:'/tools',
-        component:Tools
+        path: '/admin',
+        component: Admin,
     },
     {
-        path:'/about',
-        component:About
+        path: '/tools',
+        component: Tools
     },
     {
-        path:'/search',
-        component:Search
+        path: '/about',
+        component: About
+    },
+    {
+        path: '/search',
+        component: Search
     },
 ]
 

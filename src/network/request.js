@@ -14,11 +14,11 @@ export function request(config) {
     // 拦截请求request
     instance.interceptors.request.use(
         config => {
-            console.log(`拦截request的success`,config)
+            // console.log(`拦截request的success`,config)
             return config
         },
         err => {
-            console.log(`拦截request的err`,err)
+            // console.log(`拦截request的err`,err)
             return err
         })
 
@@ -26,11 +26,11 @@ export function request(config) {
     // 拦截响应response
     instance.interceptors.response.use(
         response => {
-            console.log(`response success被拦截`,response);
+            // console.log(`response success被拦截`,response);
             return response.data
         },
         err => {
-            console.log(`response err被拦截`,err);
+            // console.log(`response err被拦截`,err);
             return err 
         }
     )

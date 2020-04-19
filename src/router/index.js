@@ -19,8 +19,8 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '',
-        redirect: '/admin'
+        path: '/',
+        redirect: '/home'
     },
     {
         path: '/home',

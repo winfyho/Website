@@ -11,9 +11,9 @@
             </li>
 
             <li v-for="article in articles">
-                <span class="title">{{article.title}}</span>
+                <span class="title" @click="editArticle(article)">{{article.title}}</span>
                 <span class="url">{{article.url}}</span>
-                <span class="time">{{article.time}}</span>
+                <span class="time">{{new Date(article.time).getMonth()+1 + '月' +new Date(article.time).getDate() }}</span>
                 <span class="content">{{article.content}}</span>
                 <span class="views">{{article.views}}</span>
                 <span class="comments">{{article.comments.length}}</span>
@@ -27,11 +27,19 @@
 
 <script>
     import {request} from "network/request.js"
+    import {getDateObj} from "common/date.js"
+
     export default {
         name: "Articles",
         data() {
             return {
                 articles: []
+            }
+        },
+        
+        methods:{
+            editArticle(article){
+                this.$emit('edit',article)  
             }
         },
         created() {
@@ -71,6 +79,10 @@
     .article-list ul li span.title{
         width: 100px;
         min-width: 100px;
+        cursor: pointer;
+    }
+    .article-list ul li span.title:hover{
+        color: var(--color-title);
     }
     .article-list ul li span.url{
         width: 180px;

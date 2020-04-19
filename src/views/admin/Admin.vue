@@ -1,8 +1,8 @@
 <template>
     <div class="admin">
         <div class="admin-wraper">
-            <ArticleList />
-            <ArticleEditor />
+            <ArticleList @edit="startEdit" />
+            <ArticleEditor :article="curArticle" />
         </div>
     </div>
 
@@ -20,11 +20,13 @@
         },
         data() {
             return {
-
+                curArticle:{}
             }
         },
         methods: {
-
+            startEdit(article){
+                this.curArticle = article
+            }
         },
     }
 </script>

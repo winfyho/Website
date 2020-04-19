@@ -43,3 +43,15 @@ export function _postArticle(article) {
         console.log(res);
     })
 }
+
+export function _updateArticle(article) {    
+    return new Promise((resolve,reject)=>{
+        request({
+            url: `/article/update`,
+            method: "post",
+            data: article
+        })
+        .then((res) => resolve(res))
+        .catch(err => reject(err))
+    })
+}

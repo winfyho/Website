@@ -24,11 +24,12 @@
 
 <script>
     import { updateArticleLikes } from "network/article.js"
+    import { getLocalStorage, setLocalStorage } from "storage/localStorage.js"
     export default {
         name: "GuideBar",
-        props:{
-            article:{
-                type:Object
+        props: {
+            article: {
+                type: Object
             }
         },
         data() {
@@ -64,34 +65,30 @@
             // 点赞文章
             likeArticle() {
 
-                // window.localStorage.setItem("like_articles", "")
                 if (!this.isLiked) {
-                    let localStorage = window.localStorage.getItem("like_articles")
-                    let like_articles = localStorage ? JSON.parse(localStorage) : []
+                    let list = getLocalStorage("like_articles")
+                    let like_articles = list ? list : []
 
                     like_articles.unshift(this.article)
-                    window.localStorage.setItem("like_articles", JSON.stringify(like_articles))
+                    setLocalStorage("like_articles", like_articles)
+                    this.isLiked = true
 
-                    this.article.addArticleLikes().then(likes => {
-                        console.log("点赞文章", this.article._id,likes);
-                        this.isLiked = true
-                    })
+                    // this.article.addArticleLikes().then(likes => {
+                    //     console.log("点赞文章", this.article._id,likes);
+                    // })
                 }
-
-
             },
 
             // 收藏文章
             collectArticle() {
                 // window.localStorage.setItem("collect_articles", "")
                 if (!this.isCollected) {
-                    let localStorage = window.localStorage.getItem("collect_articles")
-                    let collect_articles = localStorage ? JSON.parse(localStorage) : []
+                    let list = getLocalStorage("collect_articles")
+                    let collect_articles = list ? list : []
 
                     collect_articles.unshift(this.article)
-                    window.localStorage.setItem("collect_articles", JSON.stringify(collect_articles))
+                    setLocalStorage("collect_articles", collect_articles)
 
-                    console.log("收藏文章", this.article.title);
                     this.isCollected = true
                 }
 
@@ -99,12 +96,9 @@
 
             findIsLiked() {
                 this.isLiked = false
-                let localStorage = window.localStorage.getItem("like_articles")
-                // console.log(JSON.parse(localStorage))
-
-                let collect_articles = localStorage ? JSON.parse(localStorage) : []
+                let localStorage = getLocalStorage("like_articles")
+                let collect_articles = localStorage ? localStorage : []
                 collect_articles.forEach(item => {
-
                     if (item._id === this.article._id) {
                         this.isLiked = true
                     }
@@ -113,8 +107,8 @@
 
             findIsCollected() {
                 this.isCollected = false
-                let localStorage = window.localStorage.getItem("collect_articles")
-                let collect_articles = localStorage ? JSON.parse(localStorage) : []
+                let localStorage = getLocalStorage("collect_articles")
+                let collect_articles = localStorage ? localStorage : []
                 collect_articles.forEach(item => {
                     if (item._id === this.article._id) {
                         this.isCollected = true

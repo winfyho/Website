@@ -6,8 +6,13 @@
             <div class="like-articles">
                 <h2>点赞过的文章</h2>
                 <ul>
-                    <li v-for="article in like_articles" @click="routeToArticle(article.topic,article._id)">
+                    <li v-for="article in like_articles" :key="article._id" >
                         <ArticlePreview :article="article" />
+                        
+                        <div class="hover">
+                            <button class="open" @click="routeToArticle(article.topic,article._id)">查看</button>
+                            <button @click="removeLike(article._id)">删除</button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -15,8 +20,13 @@
             <div class="collect-articles">
                 <h2>收藏文章</h2>
                 <ul>
-                    <li v-for="article in collect_articles" @click="routeToArticle(article.topic,article._id)">
+                    <li v-for="article in collect_articles"  :key="article._id">
                         <ArticlePreview :article="article" />
+                        
+                        <div class="hover">
+                            <button class="open" @click="routeToArticle(article.topic,article._id)">查看</button>
+                            <button @click="removeCollect(article._id)">删除</button>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -46,10 +56,25 @@
         created() {
             this.getLikeArticles()
             this.getCollectArticles()
-            console.log(this.like_articles, this.collect_articles);
 
         },
         methods: {
+            removeLike(id){
+                const oldList = getLocalStorage("like_articles")
+                let newList = oldList.filter(item => {
+                    return item._id !== id
+                })
+                setLocalStorage("like_articles",newList)
+                this.like_articles = newList
+            },
+            removeCollect(id){
+                const oldList = getLocalStorage("collect_articles")
+                let newList = oldList.filter(item => {
+                    return item._id !== id
+                })
+                setLocalStorage("collect_articles",newList)
+                this.collect_articles = newList
+            },
             routeToArticle(type, id) {
                 console.log(type, id);
                 this.$router.push({ path: 'study', query: { type,id } })
@@ -81,7 +106,7 @@
     }
 
     .profile .data {
-        width: 1200px;
+        width: 1000px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
@@ -90,7 +115,7 @@
     .profile .data>div {
         border-radius: 8px;
         background: #fff;
-        width: 580px;
+        width: 485px;
         box-sizing: border-box;
         padding: 20px 20px;
     }
@@ -109,13 +134,28 @@
     .profile .data>div ul li {
         position: relative;
     }
-
-    .profile .data>div ul li:hover::before {
-        content: "";
+    .profile .data>div ul li .hover{
+        display: none;
+    }
+    .profile .data>div ul li .hover button{
+        position: absolute;
+        right: 70px;
+        top: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .profile .data>div ul li .hover button.open{
+        background: #f40;
+        right: 150px;
+    }
+    .profile .data>div ul li:hover .hover {
         display: block;
         width: 100%;
         height: 100%;
-        background: rgba(100, 100, 100, .1);
+        background: rgba(100, 100, 100, .7);
         position: absolute;
+        top: 0;
+        left: 0;
     }
 </style>

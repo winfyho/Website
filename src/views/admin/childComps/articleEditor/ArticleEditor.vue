@@ -37,7 +37,7 @@
             </section>
 
             <ul class="tag-list">
-                <li v-for="tag in tags">{{tag}}</li>
+                <li v-for="tag in tags" @click="removeTag(tag)">{{tag}}</li>
             </ul>
 
             <section>
@@ -60,6 +60,7 @@
 
 
             <button class="submit" @click="postArticle">发表文章</button>
+            <button class="submit update" @click="updateArticle">更新文章</button>
 
         </div>
 
@@ -69,17 +70,36 @@
 <script>
 
     import { request } from "network/request.js"
-    import {_postArticle} from "network/article.js"
+    import { _postArticle,_updateArticle } from "network/article.js"
 
-    import {ArticleModel} from "../../../../mymodel/ArticleModel.js"
+    import { ArticleModel } from "../../../../mymodel/ArticleModel.js"
     export default {
         name: "ArticleEditor",
+        props: {
+            article: {
+                type: Object,
+                default: null
+            }
+        },
+        watch:{
+            article(item){
+                console.log("edit",item)
+                this.url = item.url
+                this.title = item.title
+                this.time = item.time
+                this.topic = item.topic
+                this.tags = item.tags
+                this.content = item.content
+                this.pre_img = item.pre_img
+            }
+        },
+    
         data() {
             return {
                 url: "/notes/分类/标题.md",
                 title: "输入标题",
                 time: new Date().getTime(),
-                topic: "es6",
+                topic: "",
                 tagName: "js",
                 tags: [
                     '前端'
@@ -108,6 +128,10 @@
 
             // },
             postArticle() {
+                if(this.article !== null || this.topic){
+                    alert("禁止发布")
+                    return
+                }
                 let art = new ArticleModel({
                     url: this.url,
                     title: this.title,
@@ -118,17 +142,54 @@
                     content: this.content,
                 })
                 console.log(art)
-                _postArticle(art)
+                // _postArticle(art)
 
             },
-            addTag(e){
+            updateArticle(){
+                console.log(this.article)
+                
+                let art = new ArticleModel({
+                    url: this.url,
+                    title: this.title,
+                    time: this.time,
+                    topic: this.topic,
+                    tags: this.tags,
+                    pre_img: this.pre_img,
+
+                    content: this.content,
+
+                    body : this.article.body,
+                    views : this.article.views,
+                    likes : this.article.likes,
+                    likers : this.article.likers,
+                    comments : this.article.comments,
+                    collects : this.article.collects,
+                })
+                // console.log("更新文章",art)
+                art._id = this.article._id
+                _updateArticle(art)
+                    .then(res => {
+                        if(res.success){
+                            this.$toast.showToast({
+                                title:"更新成功"
+                            })
+                        }
+                    })
+            },
+            addTag(e) {
                 // console.log(this.tagName)
                 this.tags.push(this.tagName)
                 this.tagName = ''
+            },
+            removeTag(tag){
+                let tags = this.tags.filter(i=>{
+                    return i !== tag
+                })
+                this.tags = tags
             }
         },
         created() {
-            
+
         },
     }
 </script>
@@ -196,5 +257,9 @@
         border: none;
         color: #fff;
         background: var(--color-background);
+    }
+    .article-editor .wraper .update{
+        background: #f40;
+        margin-left: 20px;
     }
 </style>

@@ -5,8 +5,7 @@
         <TabControl :tabs="tabs" :curBarName="topic" @bar-click="barClick" />
 
         <div class="tab-view">
-            <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" 
-            @sliderbar-click="sliderBarClick" />
+            <SliderBar :catalogue="catalogue" :sliderBarIndex="sliderBarIndex" @sliderbar-click="sliderBarClick" />
 
             <Page :htmlMD="htmlMD" :curArticle="$store.state.curArticle" />
         </div>
@@ -21,7 +20,9 @@
     import Page from "components/common/page/Page.vue"
     import axios from "axios"
 
-    import { getStudyMDFile,Article } from "network/study.js"
+    import { request } from "network/request.js"
+
+    import { getStudyMDFile, Article } from "network/study.js"
     export default {
         name: "Study",
         components: {
@@ -71,7 +72,7 @@
                         this.sliderBarIndex = index
                     }
                 })
-                console.log("选择文章",result.title, this.sliderBarIndex);
+                console.log("选择文章", result.title, this.sliderBarIndex);
                 this.getMDFile(result)
             }
         },
@@ -90,7 +91,7 @@
                 if (url) {
                     getStudyMDFile(url).then(md => {
                         // console.log(item)
-                        
+
                         this.$store.commit('changeArticle', item)
                         this.htmlMD = md.data
                         // console.log("获取文件",  md);
@@ -99,23 +100,25 @@
 
             },
             getArticles() {
-                axios.get(`http://193.112.121.234/articles`)
-                    .then((res) => {
-                        console.table(res.data);
-                        this.articles = res.data
-                        this.id = this.$route.query.id
-                        this.$store.commit('setStudyArticles', res.data)
-                    });
+                request({
+                    method: 'get',
+                    url: '/article/all'
+                }).then((articles) => {
+                    this.articles = articles
+                    this.id = this.$route.query.id
+                    this.$store.commit('setStudyArticles', res.data)
+                });
+
             }
 
         },
         beforeCreate() {
             // console.log("router query", this.$route.query);
         },
-        
+
         created() {
-            
-            
+
+
             this.getArticles()
         }
     }

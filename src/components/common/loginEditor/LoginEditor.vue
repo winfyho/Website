@@ -96,7 +96,7 @@
 
       },
       login() {
-        console.log(getLocalStorage, setLocalStorage)
+
 
         if (this.modifCode !== this.code) {
           alert("验证码错误")
@@ -115,6 +115,7 @@
                 if (res.success) {
                   this.$emit("sign", res.user)
                   setLocalStorage('user', res.user)
+                  
                   alert("登陆成功")
                 } else {
                   alert("登陆失败")

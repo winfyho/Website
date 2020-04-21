@@ -55,7 +55,7 @@ const routes = [
         },
         beforeEnter: (to, from, next) => {
             let user = getLocalStorage('user')
-            console.log("管理",user)
+            // console.log("管理",user)
             if(user){
                 next()
             }else{

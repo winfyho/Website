@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import { updateArticleLikes } from "network/article.js"
+    import { updateArticleLikes,addArticleViews } from "network/article.js"
     import { getLocalStorage, setLocalStorage } from "storage/localStorage.js"
     export default {
         name: "GuideBar",
@@ -72,10 +72,7 @@
                     like_articles.unshift(this.article)
                     setLocalStorage("like_articles", like_articles)
                     this.isLiked = true
-
-                    // this.article.addArticleLikes().then(likes => {
-                    //     console.log("点赞文章", this.article._id,likes);
-                    // })
+                    this.article.addArticleLikes()
                 }
             },
 

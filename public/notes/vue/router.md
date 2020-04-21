@@ -1,3 +1,6 @@
+
+
+
 ### 1.$route.params.query
 **适合多个参数**
 - 地址
@@ -47,4 +50,55 @@
             {path:"form",component:Form}
         ],
     }
+```
+
+### history模式
+``` js
+function changeRoute(route){
+    console.log(route.dataset);
+    let path = route.dataset.path
+    let name = route.dataset.name
+    let state = {
+        name,
+        path,
+        component:{}
+    }
+    window.history.pushState(state,"首页",path)
+    changeView({
+        name
+    })
+}
+
+function changeView(view){
+    const _routerView = document.getElementById('router-view')
+    _routerView.innerText = view.name
+}
+
+window.addEventListener('popstate',(e) => {
+    console.log(e.state);
+    changeView(e.state)
+    
+})
+```
+
+### hash模式
+``` js
+import {routes} from "./router.js"
+window.onhashchange = function(e){
+    // console.log(location.hash,e);
+    let path = location.hash.replace('#','/')
+    let route = null
+    routes.forEach(rt => {
+        if(rt.path === path){
+            route = rt
+        }
+    })
+    changeRouteByHash(route)
+}
+
+function changeRouteByHash(route){
+    console.log(route);
+    const _routerView = document.getElementById('router-view')
+    _routerView.innerText = route.name
+}
 ```

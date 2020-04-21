@@ -39,10 +39,10 @@
         },
         methods:{
             routeToDetail(){
-                console.log(this.article._id)
-                // this.$router.push({
-                //     path:`/study?type=${this.article.topic}&id=${this.article.id}`
-                // })
+                console.log(this.article._id,this.article.topic)
+                this.$router.push({
+                    path:`/study?type=${this.article.topic}&id=${this.article._id}`
+                })
                 
             }
         }

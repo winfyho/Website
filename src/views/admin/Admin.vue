@@ -59,25 +59,24 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .admin {
+        position: fixed;
+        top: 65px;
+        bottom: 0;
         width: 100%;
         width: 100vw;
-        height: 100%;
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
+        overflow: auto;
     }
 
     .admin .admin-wraper {
-        width: 1000px;
         padding-top: 10px;
         margin: 0 auto;
-        height: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
     }
 
     .btn-post {
-        position: absolute;
+        position: fixed;
         bottom: 20px;
         left: 48%;
     }

@@ -1,18 +1,5 @@
 import { request } from "./request.js"
-export function addArticleViews(id, num) {
-    return new Promise((resolve, reject) => {
-        // console.log(`http://127.0.0.1:3000/article/views?id=${id}`);
 
-
-        request({
-            url: `http://193.112.121.234/views?id=${id}&num=${num}`,
-            method: "get",
-        }).then((res) => {
-            resolve(res)
-        })
-    })
-
-}
 
 export function updateArticleLikes(id, newLikes) {
     return new Promise((resolve, reject) => {
@@ -41,26 +28,26 @@ export async function _postArticle(article) {
     })
 }
 
-export function _updateArticle(article) {    
-    return new Promise((resolve,reject)=>{
+export function _updateArticle(article) {
+    return new Promise((resolve, reject) => {
         request({
             url: `/article/update`,
             method: "post",
             data: article
         })
-        .then((res) => resolve(res))
-        .catch(err => reject(err))
+            .then((res) => resolve(res))
+            .catch(err => reject(err))
     })
 }
 
 export function _deleteArticle(id) {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         request({
             url: `/article/delete?id=${id}`,
             method: "get",
         })
-        .then((res) => resolve(res))
-        .catch(err => reject(err))
+            .then((res) => resolve(res))
+            .catch(err => reject(err))
     })
-    
+
 }

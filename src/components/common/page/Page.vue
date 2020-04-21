@@ -1,11 +1,12 @@
 <template>
     <div class="page" id="scroll-top" ref="view">
         <div class="markdown">
+
             <mavon-editor :value="htmlMD" :boxShadow="false" :defaultOpen="'preview'" :subfield=false :editable="false"
                 :toolbarsFlag="false" :previewBackground="'#fff'" :boxShadowStyle="''"></mavon-editor>
 
             <GuideBar class="operator" :article="curArticle" @scroll="scrollTo" @to-comment="scrollToComment" />
-            
+
         </div>
 
 
@@ -19,7 +20,7 @@
     import Comments from "components/common/comments/Comments.vue"
     import GuideBar from "components/content/guideBar/GuideBar.vue"
 
-    import {Article} from "network/article.js"
+    import { Article} from "network/article.js"
     export default {
         name: "",
         components: {
@@ -37,34 +38,24 @@
         },
         updated() {
             this.$refs.view.scrollTop = 0
-            this.updateArticleViews()
+            
+            this.curArticle.addArticleViews()
         },
         methods: {
-            
-            updateArticleViews() {
-                this.curArticle.addArticleViews().then(views => {
-                    // console.log("当前文章浏览数", this.curArticle,views);
-                })
-            },
-            scrollToComment(){
-                // console.log("to-comment",this.$refs.comment.$el.offsetTop)
+
+            scrollToComment() {
                 this.$refs.view.scrollTop = this.$refs.comment.$el.offsetTop
-                
             },
-            scrollTo(target){
-                
+            scrollTo(target) {
                 let speed = 70
-                // console.log("scroll-top",target)
                 let timer = setInterval(() => {
-                    if(this.$refs.view.scrollTop === 0){
+                    if (this.$refs.view.scrollTop === 0) {
                         clearInterval(timer)
-                    }else{
+                    } else {
                         this.$refs.view.scrollTop -= speed
                         speed += 1
                     }
-                    
                 }, 16.7);
-                
             }
         }
     }
@@ -74,7 +65,6 @@
 <style scoped>
     .page {
         position: relative;
-        /* background: #f8f8f8; */
         box-sizing: border-box;
         width: 100%;
         padding-bottom: 0px;
@@ -93,5 +83,4 @@
     .page .markdown .markdown-body {
         border: none;
     }
-    
 </style>

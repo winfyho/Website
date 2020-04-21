@@ -36,13 +36,13 @@
                 tabs: [
                     { title: "css3" },
                     { title: "es6" },
-                    { title: "markdown" },
                     { title: "vue" },
                     { title: "tools" },
+                    { title: "markdown" },
                 ],
                 sliderBarIndex: 0,
                 htmlMD: ``,
-                topic: this.$route.query.type || 'css3',
+                topic: '',
                 id: '',
                 articles: [],
             }
@@ -58,13 +58,11 @@
 
         },
         watch: {
-            // 默认加载当前分类目录第一个
-            catalogue: function (val, oldVal) {
-                // console.log("watch",val,this.sliderBarIndex,this.catalogue[0].url);
+            topic: function (val) {
+                // console.log(this.catalogue[0].title)
+                this.id = this.catalogue[0]._id
                 this.sliderBarIndex = 0
-                this.getMDFile(this.catalogue[0])
             },
-            // id变化加载对应文章
             id: function (val, oldVal) {
                 let result = {}
                 this.catalogue.forEach((item, index) => {
@@ -73,8 +71,18 @@
                         this.sliderBarIndex = index
                     }
                 })
-                console.log("选择文章", result.title, this.sliderBarIndex);
                 this.getMDFile(result)
+            },
+            $route: function (route) {
+                // console.log(route)
+                if(route.path !== '/study' || !route.query.id){
+                    return  
+                }
+                
+                const id = route.query.id
+                const type = route.query.type
+                this.id = id
+                this.topic = type 
             }
         },
         methods: {
@@ -94,8 +102,7 @@
                         // console.log(item)
 
                         this.$store.commit('changeArticle', item)
-                        this.htmlMD = md.data
-                        // console.log("获取文件",  md);
+                        this.htmlMD = md.data || "# 找不到文件"
                     })
                 }
 
@@ -105,21 +112,14 @@
                     method: 'get',
                     url: '/article/all'
                 }).then((articles) => {
+                    this.topic = 'css3'
                     this.articles = articles
-                    this.id = this.$route.query.id
                     this.$store.commit('setStudyArticles', articles)
                 });
-
             }
 
         },
-        beforeCreate() {
-            // console.log("router query", this.$route.query);
-        },
-
         created() {
-
-
             this.getArticles()
         }
     }

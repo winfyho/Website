@@ -56,7 +56,6 @@
         created() {
             this.getLikeArticles()
             this.getCollectArticles()
-
         },
         methods: {
             removeLike(id){

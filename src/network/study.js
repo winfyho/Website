@@ -15,31 +15,29 @@ export class Article {
         this.comments = article.comments || []
     }
     addArticleViews() {
-        return new Promise((resolve, reject) => {
-            // console.log(`http://127.0.0.1:3000/article/views?id=${id}`);
-            // request({
-            //     url: `/article/views?id=${this._id}&num=${this.views+1}`,
-            //     method: "get",
-            // }).then((res) => {
-            //     this.views += 1
-            //     resolve(this.views)
-            // })
+        return new Promise((resolve, reject) => {   
+            request({
+                url: `/article/views?id=${this._id}&views=${this.views+1}`,
+                method: "get",
+            }).then((res) => {
+                this.views += 1
+                resolve(res)
+            })
         })
     }
     addArticleLikes(){
         return new Promise((resolve,reject) => {
-            // console.log(`/article/views?id=${id}`);
-            // console.log(id,newLikes);
-            // request({
-            //     url:`/article/like?id=${this._id}&newLikes=${this.likes+1}`,
-            //     method:"get",
-            // }).then((res) => {
-            //     this.likes += 1
-            //     resolve(this.likes)
-            // })
+            request({
+                url:`/article/likes?id=${this._id}&likes=${this.likes+1}`,
+                method:"get",
+            }).then((res) => {
+                this.likes += 1
+                resolve(res)
+            })
         })
         
     }
+
     postComment(comment){
         return new Promise((resolve,reject) => {
             // console.log(comment);
@@ -60,7 +58,9 @@ export function getStudyMDFile(url) {
         axios.get(`${url}`).then((res) => {
             // console.log("请求md文件", url, res);
             resolve(res)
-        });
+        }).catch(err => {
+            reject(err)
+        })
 
     })
 }

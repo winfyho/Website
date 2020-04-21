@@ -16,15 +16,18 @@ Vue.use(toast)
 
 router.beforeEach((to, from, next) => {
 
-  // console.log('router before to', to.matched)
-  // console.log('router before from', from)
-  console.log(to)
-  
+  // console.log('router before to', to.fullPath)
+  // console.log('router before from', from.fullPath)
   if (to.path !== '/admin') {
     Nprogress.start()
   }
+  if (to.fullPath === from.fullPath) {
+    next(false)
+  } else {
+    next()
+  }
+  
 
-  next()
 })
 
 router.afterEach((to, from) => {

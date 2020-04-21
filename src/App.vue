@@ -2,7 +2,7 @@
   <div id="app">
     <head-nav @updata-search="updateSearch"></head-nav>
     <!-- <Search :results="results" /> -->
-    <keep-alive exclude="Study">
+    <keep-alive >
 
       <router-view :results="results"></router-view>
 
@@ -38,8 +38,6 @@
             path: 'search'
           })
         }
-
-
       }
     },
 

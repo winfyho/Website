@@ -70,6 +70,7 @@
     .article-list {
         width: 100%;
         border: 1px solid #aaa;
+        margin-bottom: 50px;
     }
 
     .article-list ul li {
@@ -99,10 +100,15 @@
         color: var(--color-title);
     }
     .article-list ul li span.url{
+        padding-left: 20px;
+        box-sizing: border-box;
         width: 200px;
         min-width: 200px;
+        overflow: hidden;
     }
     .article-list ul li span.time{
+        padding-left: 20px;
+        box-sizing: border-box;
         width: 100px;
         min-width: 100px;
         font-size: 13px;

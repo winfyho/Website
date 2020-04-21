@@ -37,12 +37,20 @@
     created() {
       this.recommends = [
         {
+          title:"Vuex框架原理与源码分析",
+          href:"https://tech.meituan.com/2017/04/27/vuex-code-analysis.html"
+        },
+        {
           title:"前端安全：如何防范XSS攻击",
           href:"https://tech.meituan.com/2018/09/27/fe-security.html"
         },
         {
           title:"前端安全：如何防范CSRF攻击",
           href:"https://tech.meituan.com/2018/10/11/fe-security-csrf.html"
+        },
+        {
+          title:"构建时预渲染：网页首帧优化实践",
+          href:"https://tech.meituan.com/2018/11/15/first-contentful-paint-practice.html"
         }
       ]
       this.articles = articles
@@ -53,7 +61,7 @@
         toast:this.$toast
       }).then(articles => {
         console.log(articles)
-        this.articles = articles
+        this.articles = articles.slice(0,5)
         // this.$toast.showToast({
         //   icon:"loading"
         // })

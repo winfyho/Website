@@ -22,6 +22,6 @@
     line-height: 60px;
     font-weight: 700;
     font-size: 24px;
-    color: #36CFB1;
+    color: var(--color-background);
 }
 </style>

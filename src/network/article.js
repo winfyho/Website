@@ -32,15 +32,12 @@ export function updateArticleLikes(id, newLikes) {
 
 }
 
-export function _postArticle(article) {
+export async function _postArticle(article) {
     console.log(article)
-    
-    request({
+    await request({
         url: `/article/post`,
         method: "post",
         data: article
-    }).then((res) => {
-        console.log(res);
     })
 }
 
@@ -54,4 +51,16 @@ export function _updateArticle(article) {
         .then((res) => resolve(res))
         .catch(err => reject(err))
     })
+}
+
+export function _deleteArticle(id) {
+    return new Promise((resolve,reject)=>{
+        request({
+            url: `/article/delete?id=${id}`,
+            method: "get",
+        })
+        .then((res) => resolve(res))
+        .catch(err => reject(err))
+    })
+    
 }

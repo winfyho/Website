@@ -38,6 +38,7 @@
                     { title: "es6" },
                     { title: "markdown" },
                     { title: "vue" },
+                    { title: "tools" },
                 ],
                 sliderBarIndex: 0,
                 htmlMD: ``,
@@ -106,7 +107,7 @@
                 }).then((articles) => {
                     this.articles = articles
                     this.id = this.$route.query.id
-                    this.$store.commit('setStudyArticles', res.data)
+                    this.$store.commit('setStudyArticles', articles)
                 });
 
             }
@@ -134,7 +135,6 @@
         right: 0;
         box-sizing: border-box;
         width: 100%;
-        /* height: 100%; */
         overflow: hidden;
 
     }
@@ -152,7 +152,5 @@
         box-sizing: border-box;
         display: flex;
         width: 100%;
-
-
     }
 </style>

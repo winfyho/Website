@@ -2,7 +2,9 @@
 
 :root{
     --color-title:#41B883;
+    --color-title:#00B4DD;
     --color-background:#41B883;
+    --color-background:#00B4DD;
     --color-tag:#FF5C38;
     --navbar-height:61px;
     --tabcontrol-height:60px;

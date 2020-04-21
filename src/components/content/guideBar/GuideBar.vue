@@ -125,10 +125,8 @@
     .guide-bar {
         position: fixed;
         z-index: 9;
-        right: 20px;
-        transform: translateX(0px);
-        top: 150px;
-        /* padding: 0 10px; */
+        right: 30px;
+        top: 110px;
     }
 
     .guide-bar div {

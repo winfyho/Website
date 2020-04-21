@@ -4,7 +4,7 @@
         <h6>推荐内容</h6>
         <ul>
             <li v-for="item in recommends"  @click="navigateTo(item)">
-                <span>{{item.title}}</span>
+                <a :href="item.href" target="_blank">{{item.title}}</a>
             </li>
         </ul>
 
@@ -58,13 +58,13 @@
     }
     .recommend ul>li{
         cursor: pointer;
-        height: 25px;
-        line-height: 25px;
+        height: 30px;
+        line-height: 30px;
     }
-    .recommend ul>li:hover span{
+    .recommend ul>li:hover a{
         color: var(--color-title);
     }
-    .recommend ul>li span{
-        display: inline-block;
+    .recommend ul>li a{
+        display: block;
     }
 </style>

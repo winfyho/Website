@@ -55,7 +55,7 @@
         padding: 20px;
         padding-left: 30px;
         z-index: 3;
-        box-shadow: 2px 8px 8px rgba(0, 0, 0, .3)
+        box-shadow: 0px 8px 8px rgba(0, 0, 0, .3)
     }
 
     .slider-bar ul li {

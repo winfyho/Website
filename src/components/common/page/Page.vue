@@ -4,7 +4,7 @@
             <mavon-editor :value="htmlMD" :boxShadow="false" :defaultOpen="'preview'" :subfield=false :editable="false"
                 :toolbarsFlag="false" :previewBackground="'#fff'" :boxShadowStyle="''"></mavon-editor>
 
-            <GuideBar :article="curArticle" @scroll="scrollTo" @to-comment="scrollToComment" />
+            <GuideBar class="operator" :article="curArticle" @scroll="scrollTo" @to-comment="scrollToComment" />
             
         </div>
 
@@ -74,10 +74,9 @@
 <style scoped>
     .page {
         position: relative;
-        background: #f8f8f8;
+        /* background: #f8f8f8; */
         box-sizing: border-box;
         width: 100%;
-        /* padding: 0px 40px; */
         padding-bottom: 0px;
         border-left: 1px solid #eee;
         overflow-y: auto;
@@ -86,7 +85,6 @@
 
     .page .markdown {
         position: relative;
-        padding-right: 100px;
         min-width: 450px;
         max-width: 750px;
         margin: 0 auto;
@@ -95,4 +93,5 @@
     .page .markdown .markdown-body {
         border: none;
     }
+    
 </style>
